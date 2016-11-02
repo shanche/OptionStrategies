@@ -1,0 +1,5 @@
+dryscrape
+beautifulsoup4
+numpy
+pandas
+
