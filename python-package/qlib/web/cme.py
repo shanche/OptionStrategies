@@ -123,8 +123,10 @@ class CMESP500Scraper(BaseScraper):
 
     @classmethod
     def parse_my(cls, x):
-        m, y = x.split(' ')
+        s = re.search(r'(\w{3})\s+(\d{4})', x)
+        if s is None:
+            return None
+        m, y = s.group(1), s.group(2)
         m = cls.mon[m.lower()]
         assert m is not None, 'Failed to parse MON YYYY'
         return y + m
-
