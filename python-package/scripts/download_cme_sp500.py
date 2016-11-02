@@ -14,5 +14,5 @@ if __name__ == '__main__':
     scraper.futures_data.to_csv('{}/CMESP500Futures_{}.csv'.format(data_dir, run_date))
 
     print("Loaded {} options contracts".format(scraper.options_data.shape[0]))
-    scraper.options_data.to_csv('{}/CMESP500Futures_{}.csv'.format(data_dir, run_date))
+    scraper.options_data.to_csv('{}/CMESP500Options_{}.csv'.format(data_dir, run_date))
 
