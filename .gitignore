@@ -1,8 +1,9 @@
 data/
+.idea/
+
+scripts/draft_*
 
 *RDS
 *RData
-
 *pkl
 
-.idea/
