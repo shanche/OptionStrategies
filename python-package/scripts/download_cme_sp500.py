@@ -11,8 +11,7 @@ if __name__ == '__main__':
     data_dir = r'/home/yue/study/OptionStrategies/data/CMESP500'
 
     print("Loaded {} futures contracts".format(scraper.futures_data.shape[0]))
-    scraper.futures_data.to_csv('{}/CMESP500Futures_{}.csv'.format(data_dir, run_date))
+    scraper.futures_data.to_csv('{}/CMESP500Futures_{}.csv'.format(data_dir, run_date), index=False)
 
     print("Loaded {} options contracts".format(scraper.options_data.shape[0]))
-    scraper.options_data.to_csv('{}/CMESP500Options_{}.csv'.format(data_dir, run_date))
-
+    scraper.options_data.to_csv('{}/CMESP500Options_{}.csv'.format(data_dir, run_date), index=False)
