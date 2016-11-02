@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import numpy as np
 import pandas as pd
 import re
+from datetime import datetime
 import time
 # import logging
 from .base import BaseScraper
@@ -43,6 +44,7 @@ class CMESP500Scraper(BaseScraper):
         """Load the first n futures contracts"""
 
         print(r"Loading Futures Data ..")
+        run_date = datetime.today().strftime('%Y-%m-%d')
         self.__fut_page = self.read_url(self.fut_url)
 
         soup = BeautifulSoup(self.__fut_page, 'html.parser')
@@ -65,7 +67,7 @@ class CMESP500Scraper(BaseScraper):
             option_url = self.opt_url.format(contract[-2:])
             self.__opt_list.append((exp_ym, option_url))
 
-            res = {'Expiry': exp_ym}
+            res = {'RunDate': run_date, 'Expiry': exp_ym}
             for col in cols:
                 z = tr.find('td', {'id': 'quotesFuturesProductTable1_{}_{}'.format(contract, col)})
                 z = z.text.replace(r',', '').replace(r'-', '') if z is not None else ''
@@ -86,6 +88,7 @@ class CMESP500Scraper(BaseScraper):
             time.sleep(10)
 
             print(r"  parsing page: {} ...".format(url))
+            run_date = datetime.today().strftime('%Y-%m-%d')
             page = self.read_url(url)
 
             soup = BeautifulSoup(page, 'html.parser')
@@ -106,7 +109,7 @@ class CMESP500Scraper(BaseScraper):
                 x = np.float(x.text)
 
                 for otype in ('C', 'P'):
-                    res = {'Expiry': exp_ym, 'Type': otype, 'Strike': x}
+                    res = {'RunDate': run_date, 'Expiry': exp_ym, 'Type': otype, 'Strike': x}
                     for col in cols:
                         z = tr.find('td', {'id': 'optionQuotesProductTable1_{}_{}{}_{}'.format(
                             contract, otype, strike, col)})
